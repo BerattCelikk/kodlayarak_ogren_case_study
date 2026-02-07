@@ -1,13 +1,19 @@
 import React from 'react';
 import {Audio, useCurrentFrame, useVideoConfig} from 'remotion';
 import generated from '../assets/generated.json';
-import musicStatic from '../assets/music.wav';
+import musicWav from '../assets/music.wav';
+import musicMp3 from '../assets/music.mp3';
 
 const MusicLayer: React.FC = () => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const musicFile = generated.music || null;
-  const resolvedSrc = musicFile ? musicStatic : null;
+  let resolvedSrc: string | null = null;
+  if (musicFile) {
+    const lower = musicFile.toLowerCase();
+    if (lower.endsWith('.mp3')) resolvedSrc = musicMp3;
+    else if (lower.endsWith('.wav')) resolvedSrc = musicWav;
+  }
 
   if (!resolvedSrc) return null;
 
