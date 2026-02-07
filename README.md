@@ -4,7 +4,20 @@
 <img src="src/assets/logo.svg" alt="NebulaOne logo" width="140" />
 
 Bu depo, Remotion (TypeScript) kullanılarak oluşturulmuş, AI destekli bir tanıtım videosu şablonudur. Amaç, kısa ve profesyonel bir promo videosunun tekrarlanabilir bir şablon ile hızlıca oluşturulmasını sağlamaktır. AI tarafından üretilen içerikler kontrollü bir şekilde kullanılmakta ve gerektiğinde yerel örnek veriye geri dönülmektedir.
+<div align="center">
+	<h1>NebulaOne — Otomatik Remotion Tanıtım Videosu</h1>
+	<img src="src/assets/logo.svg" alt="NebulaOne logo" width="120" />
+	<p>
+		Bu depo, Remotion (TypeScript) kullanılarak oluşturulmuş, AI destekli bir tanıtım
+		videosu şablonudur. Amaç, kısa ve profesyonel bir promo videosunun tekrarlanabilir
+		bir şablon ile hızlıca oluşturulmasını sağlamaktır. AI tarafından üretilen içerikler
+		kontrollü bir şekilde kullanılmakta ve gerektiğinde yerel örnek veriye geri dönülmektedir.
+	</p>
+</div>
 
+**Öne çıkanlar**
+
+<div align="center">
 **Öne çıkanlar**
 
 - Modüler React + TypeScript + Remotion bileşenleri
@@ -12,6 +25,7 @@ Bu depo, Remotion (TypeScript) kullanılarak oluşturulmuş, AI destekli bir tan
 - Yeniden kullanılabilir bileşenler: `Intro`, `Feature`, `LowerThird`, `CaptionOverlay`, `Outro`
 - Çıktılar: `out/final.mp4`, `out/subtitles.srt`, `out/thumbnail.gif`
 - Hazır scriptler: `build:final`, `build:webm`, `generate:assets`
+</div>
 
 ## Hızlı Başlangıç
 
