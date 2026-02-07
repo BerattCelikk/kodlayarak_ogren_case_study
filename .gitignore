@@ -1,5 +1,3 @@
 node_modules/
 dist/
-out/
-src/assets/images/
 .env
