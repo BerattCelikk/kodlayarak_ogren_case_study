@@ -1,90 +1,89 @@
-# NebulaOne — Otomatik Remotion Tanıtım Videosu
+# NebulaOne — Benim Otomatik Remotion Tanıtım Videom
 
-> Profesyonel, modüler ve AI destekli Remotion (TypeScript) video örneği.
+Merhaba — bu repo benim hazırladığım, AI destekli ve Remotion (TypeScript) ile oluşturulmuş bir tanıtım videosu projesidir. Amacım kısa, profesyonel ve yeniden üretilebilir bir 1 dakikalık promo şablonu sunmaktı. İçeriklerin bir kısmını yapay zekayla ürettim, ama her şeyi kontrol edilebilir ve yerel olarak yeniden oluşturulabilir hâle getirdim.
+---
 
-Bu depo, 1 dakikalık (veya daha uzun) dinamik bir tanıtım videosu oluşturmak için hazırlanmış bir Remotion projesidir. Video içerikleri kısmen yapay zeka tarafından üretilir ve proje, yeniden üretilebilir varlık jenerasyonu ile birlikte gelir.
+
+Neler yaptım ve neden?
+
+- Projeyi modüler tuttum: `Intro`, `Feature`, `LowerThird`, `CaptionOverlay`, `Outro` gibi küçük bileşenlerle hızlıca değişiklik yapabiliyorum.
+- AI entegrasyonu (Hugging Face) ile metin/görsel fikirleri otomatik üretebiliyorum; ama API çağrıları başarısız olursa projede hazır bir `src/assets/generated.json` kullanılıyor — böylece render her zaman tutarlı.
+- Çıktı olarak `out/final.mp4`, `out/subtitles.srt` ve `out/thumbnail.gif` üretiyorum; `build:webm` script'i ile WebM varyantı da oluşturulabilir.
 
 ---
 
-**Öne çıkanlar**
 
-- Modüler React + TypeScript ile yazılmış Remotion kompozisyonları
-- AI destekli varlık üretimi (Hugging Face) — metin ve görsel önerileri
-- Animasyonlu Intro, Feature kartları, Lower Third ve Outro bileşenleri
-- Altyazı (SRT) ve tek kare thumbnail (GIF) çıktı desteği
-- `build:final` ve `build:webm` script'leri ile tek komutla render
+## Hızlı Başlangıç (benim adımlarımla)
 
----
-
-## Hızlı Başlangıç
-
-1. Bağımlılıkları yükleyin:
+1. Bağımlılıkları yükledim/kurun:
 
 ```bash
 npm install
 ```
 
-2. (İsteğe bağlı) AI varlıklarını yeniden üretmek için bir Hugging Face API anahtarı sağlayın:
+2. Eğer AI varlıklarını tekrar üretmek isterseniz bir Hugging Face anahtarı ekleyin:
 
-- Proje kökünde bir `.env` dosyası oluşturun ve aşağıyı ekleyin:
+`.env` dosyasına:
 
 ```
 HUGGINGFACE_API_KEY=hf_...your_key_here...
 ```
 
-3. Varlıkları oluşturun (opsiyonel — eğer `.env` yoksa projede hazır `src/assets/generated.json` kullanılacaktır):
+3. Varlıkları üretmek (opsiyonel):
 
 ```bash
 npm run generate:assets
 ```
 
-4. Geliştirme önizlemesi başlatın:
+4. Önizleme başlatmak için:
 
 ```bash
 npm run start
 ```
 
-5. Final render (60s, h264):
+5. Final videoyu üretmek için (ben bunu `out/final.mp4` olarak kaydettim):
 
 ```bash
 npm run build:final
 ```
 
-6. WebM (VP9) çıktısı üretmek isterseniz:
+6. WebM isterseniz:
 
 ```bash
 npm run build:webm
 ```
 
-Not: Yerel ortamda `ffmpeg` yüklü değilse altyazıyı videoya gömme veya ileri düzey transkod işlemleri doğrudan yapılamaz. `ffmpeg` yüklü ise ekasyonlar ve örnek komutlar README altında verilmiştir.
+Not: Eğer altyazıları videoya gömmek ya da ileri düzey transkod yapmak isterseniz `ffmpeg` kurmanız gerekiyor; yoksa altyazı ayrı `out/subtitles.srt` olarak kalır.
 
 ---
 
-## Nasıl çalışıyor (kısa teknik özet)
 
-- `src/index.tsx` Remotion kökünü kaydeder ve `src/RemotionVideo.tsx` içindeki `Composition`'ı yükler.
-- Kompozisyon, `Intro`, `Feature`, `LowerThird`, `CaptionOverlay`, `Outro` gibi küçük, test edilebilir bileşenlere bölünmüştür.
-- `src/generateAssets.ts` Hugging Face Inference API (router) kullanarak metin ve görsel fikirleri talep eder. API çağrıları başarısız olursa script, projeye gömülü `src/assets/generated.json` dosyasına geri döner.
-- Render sırasında komponentler, `generated.json` içindeki `theme`, `brand` ve `assets` verilerini kullanır.
+## Nasıl çalışıyor (teknik notlar)
+
+- `src/index.tsx` kök bileşeni kaydediyor; asıl düzen `src/RemotionVideo.tsx` içinde. Orada zamanlama ve sekans düzeni var.
+- Bileşenler bağımsız, bu yüzden tek bir bileşeni düzenleyip hızlı test render'ı (ör. `--frames 0-120`) yapabilirsiniz.
+- `src/generateAssets.ts` Hugging Face router'ına istek atıyor; eğer model erişimi yoksa script hazır `src/assets/generated.json`'a düşüyor. Bu sayede render akışı bozulmuyor.
+- Render sırasında komponentler `generated.json` içindeki `theme`, `brand` ve görsel/başlık verilerini okuyor.
+
+---
+
+
+## Önemli dosyalar
+
+- `src/RemotionVideo.tsx` — ana kompozisyon ve zamanlama
+- `src/components/` — bileşenler (`Intro`, `Feature`, `LowerThird`, `Outro`, vs.)
+- `src/generateAssets.ts` — AI destekli varlık üretimi (Node script)
+- `src/assets/generated.json` — eğer AI çağrısı başarısız olursa kullanılan örnek veri
+- `out/` — `final.mp4`, `thumbnail.gif`, `subtitles.srt`, `CREDITS.txt`
 
 ---
 
-## Dosya Yapısı (Önemliler)
-
-- `src/` — Tüm Remotion bileşenleri ve kaynak kod
-  - `RemotionVideo.tsx` — Ana kompozisyon ve sekans düzeni
-  - `components/` — `Intro`, `Feature`, `Outro`, `ProgressBar`, vs.
-  - `generateAssets.ts` — AI tabanlı varlık oluşturucu (Node script)
-- `src/assets/generated.json` — Jeneratörün ürettiği (veya örnek) içerik
-- `out/` — Render edilmiş `final.mp4`, `thumbnail.gif`, `subtitles.srt`, `CREDITS.txt`
-
----
 
 ## Altyazılar ve Thumbnail
 
-- Altyazılar `out/subtitles.srt` olarak sağlanır.
-- Tek kare thumbnail GIF `out/thumbnail.gif` içinde mevcuttur.
-- Eğer altyazıları videoya gömmek isterseniz ortamınıza `ffmpeg` kurup aşağıdaki örneği kullanabilirsiniz:
+- Ben altyazıları `out/subtitles.srt` olarak bıraktım — tercih ederseniz gömebiliriz.
+- Thumbnail tek kare GIF olarak `out/thumbnail.gif` içine kaydedildi.
+- `ffmpeg` ile altyazı gömmek isterseniz örnek komut:
 
 ```bash
 ffmpeg -i out/final.mp4 -i out/subtitles.srt -c copy -c:s mov_text out/final_with_subs.mp4
@@ -92,33 +91,39 @@ ffmpeg -i out/final.mp4 -i out/subtitles.srt -c copy -c:s mov_text out/final_wit
 
 ---
 
-## Troubleshooting & Bilinen Sınırlamalar
 
-- Hugging Face API çağrıları bazı modeller için router dönüşleri (410/404) üretebilir. Bu durumda `generateAssets` script'i yerel `generated.json`'a geri döner.
-- Eğer `npx remotion` veya CLI komutları çalışmıyorsa `node`/`npm` versiyonunuzu kontrol edin ve `npm install` çalıştırdığınızdan emin olun.
-- Ortamda `ffmpeg` yüklü değilse bazı transkod/altyazı işlemleri yapılamaz; Windows için `choco install ffmpeg` veya https://ffmpeg.org/ üzerinden yükleyin.
+## Sorun giderme & dikkat edilmesi gerekenler
+
+- Hugging Face router bazı modeller için hata dönebilir (410/404). Bu durumda script otomatik olarak `src/assets/generated.json`'a döner — yani render her zaman çalışır.
+- `npx remotion` çalışmazsa önce `npm install` ve Node sürümünüzü kontrol edin.
+- `ffmpeg` yoksa altyazı gömme/transkod işlemleri lokal olarak yapılamaz; Windows için `choco install ffmpeg` veya https://ffmpeg.org/ üzerinden kurabilirsiniz.
 
 ---
+
 
 ## Güvenlik & Gizlilik
 
-- Projede kullanılan marka adı `NebulaOne` tamamen kurgusaldır — kullanıcı isteğiyle gerçek proje isimleri gizlenmiştir.
-- API anahtarınızı asla repoya koymayın. `.env` dosyasını paylaşmayın.
+- Projedeki marka adı `NebulaOne` kurgusaldır — gerçek proje/şirket isimleri gösterilmedi.
+- API anahtarınızı kesinlikle repoya eklemeyin. `.env` dosyasını paylaşmayın.
 
 ---
+
 
 ## Hızlı İpuçları
 
-- Hızlı test render için küçük kare aralıkları kullanın (ör. `--frames 0-120`) ve `npx remotion render` komutuyla test edin.
-- Müzik eklemek isterseniz `src/assets` içine `music.mp3` koyun ve `Intro`/`Outro` bileşenlerinde `Audio` komponentini kullanın.
+- Hızlı test render yapmak için kısa frame aralıkları kullanın: `npx remotion render src/index.tsx ProductAd --frames 0-120`.
+- Müzik eklemek isterseniz `src/assets/music.mp3` koyun; `Intro`/`Outro`'da `Audio` kullanıyorum.
 
 ---
 
-## Sonraki Adımlar (Öneriler)
 
-1. Arka plan müziği ekleyin (kısa telifsiz parça) — volume + ducking ayarı ekleyebilirim.
-2. `ffmpeg` ile altyazı gömme ve birkaç WebM/VP9 varyantı üretme.
-3. CI pipeline (GitHub Actions) oluşturarak otomatik `build:final` tetikleme.
+## Bir sonraki adım olarak benden ne istersiniz?
+
+1. Arka plan müziğini ekleyip mix ve ducking ayarlarını yapayım mı?
+2. `ffmpeg` kurulumunda yardımcı olup altyazıları gömelim mi?
+3. GitHub Actions ekleyip otomatik render pipeline'ı oluşturalım mı?
+
+Seçin, ben hallederim.
 
 ---
 
@@ -128,7 +133,7 @@ Bu depo örnek amaçlıdır. Proje içindeki varlıkların lisanslarına dikkat 
 
 ---
 
-Teşekkürler — değişiklik yapılmasını isterseniz söyleyin, README'yi isteğinize göre kısaltıp genişletebilirim.
+Teşekkürler — README'yi sizin üslubunuza göre ilk-kişiliğe çevirdim. Düzeltmek istediğiniz bir yer varsa söyleyin, hemen güncellerim.
 # Remotion AI-Driven Promo (sample)
 
 This repository contains a Remotion (TypeScript) project scaffold that builds a dynamic 60+ second promotional video. The composition consumes a JSON file of generated assets (copy and images). A Node script shows how to use OpenAI to generate those assets.
