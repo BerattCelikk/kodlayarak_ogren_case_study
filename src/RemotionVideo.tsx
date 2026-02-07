@@ -11,6 +11,7 @@ import CaptionOverlay from './components/CaptionOverlay';
 import generated from './assets/generated.json';
 import logo from './assets/logo.svg';
 import {Audio} from 'remotion';
+import MusicLayer from './components/MusicLayer';
 
 const fps = 30;
 const durationInFrames = 1800; // 60s at 30fps
@@ -21,8 +22,7 @@ const VideoRoot: React.FC = () => {
   return (
     <div className={`theme-${generated.theme || 'cool'}`} style={{width: '100%', height: '100%'}}>
       <>
-      {/* Optional audio: place `src/assets/music.mp3` if you want background music */}
-      {/* <Audio src="./assets/music.mp3" /> */}
+      <MusicLayer />
 
       <Sequence from={0} durationInFrames={120}>
         <Intro data={generated} />

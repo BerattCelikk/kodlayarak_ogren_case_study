@@ -1,0 +1,18 @@
+This project supports adding a background music track for the final video.
+
+To enable background music:
+
+1. Add an MP3 file at `src/assets/music.mp3`.
+2. Update `src/assets/generated.json` and set the `music` field to the filename, e.g.:
+
+```json
+{
+  "music": "music.mp3"
+}
+```
+
+Implementation notes:
+- The video code includes conditional audio playback: if `generated.json.music` is set, the track will be played as background music.
+- Ducking: when voiceover/caption sequences appear, background music volume will be attenuated automatically.
+
+If you want, provide a music file and I will add it and run a test render.
