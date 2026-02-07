@@ -1,3 +1,105 @@
+<!-- prettier-ignore -->
+# NebulaOne — Benim Otomatik Remotion Tanıtım Videom
+
+![logo](src/assets/logo.svg)
+
+Merhaba — bu repo benim hazırladığım, AI destekli ve Remotion (TypeScript) ile oluşturulmuş kısa bir tanıtım videosu şablonu. Amacım:
+
+- Hızlıca özelleştirilebilir bir 1 dakikalık promo şablonu sunmak
+- Yapay zekâdan gelen fikirleri güvenli, yeniden üretilebilir hâle getirmek
+- Basit komutlarla final video ve yardımcı dosyalar üretmek
+
+> Bu README, projeyi nasıl çalıştırdığımı, nasıl yeniden üretebileceğinizi ve olası sorunların nasıl çözüleceğini anlatır.
+**Öne çıkanlar**
+
+- Modüler React + TypeScript + Remotion bileşenleri
+- AI destekli varlık üretimi (Hugging Face) — otomatik metin/görsel önerileri
+- `Intro`, `Feature`, `LowerThird`, `CaptionOverlay`, `Outro` gibi yeniden kullanılabilir parçalar
+- Çıktılar: `out/final.mp4`, `out/subtitles.srt`, `out/thumbnail.gif`
+- Hazır script'ler: `build:final`, `build:webm`, `generate:assets`
+
+## Hızlı Başlangıç
+
+1. Bağımlılıkları yükleyin:
+
+```bash
+npm install
+```
+
+2. (Opsiyonel) Hugging Face API anahtarı ekleyin:
+
+```
+HUGGINGFACE_API_KEY=hf_...your_key_here...
+```
+
+3. AI varlıklarını üretmek (opsiyonel):
+
+```bash
+npm run generate:assets
+```
+
+4. Geliştirme önizlemesi:
+
+```bash
+npm run start
+```
+
+5. Final render (benim çıktım `out/final.mp4` oldu):
+
+```bash
+npm run build:final
+```
+
+6. WebM (VP9) çıktı:
+
+```bash
+npm run build:webm
+```
+
+Not: `ffmpeg` yoksa altyazı gömme/transkod işlemleri yapılamaz; `ffmpeg` yüklüyse README altındaki örnekleri kullanabilirsiniz.
+## Nasıl çalışıyor (teknik notlar)
+
+- `src/index.tsx` Remotion kökünü kayıt eder; `src/RemotionVideo.tsx` içinde zamanlama ve sekanslar bulunur.
+- Her bileşen bağımsızdır: tek bir bileşeni değiştirip hızlı test render'ı yapabilirsiniz (`--frames 0-120`).
+- `src/generateAssets.ts` Hugging Face router'ına istek atar; erişim yoksa `src/assets/generated.json` kullanılarak güvenli bir fallback sağlanır.
+- Bileşenler render sırasında `generated.json` içindeki `theme`, `brand` ve asset verilerini okur.
+## Önemli dosyalar
+
+- `src/RemotionVideo.tsx` — ana kompozisyon ve zamanlama
+- `src/components/` — bileşenler (`Intro`, `Feature`, `LowerThird`, `Outro`, vs.)
+- `src/generateAssets.ts` — AI tabanlı varlık oluşturucu (Node script)
+- `src/assets/generated.json` — fallback / örnek içerik
+- `out/` — `final.mp4`, `thumbnail.gif`, `subtitles.srt`, `CREDITS.txt`
+## Altyazılar ve Thumbnail
+
+- Altyazılar: `out/subtitles.srt`
+- Thumbnail: `out/thumbnail.gif`
+
+`ffmpeg` ile altyazı gömme örneği:
+
+```bash
+ffmpeg -i out/final.mp4 -i out/subtitles.srt -c copy -c:s mov_text out/final_with_subs.mp4
+```
+## Sorun giderme & dikkat edilmesi gerekenler
+
+- Hugging Face router bazı modeller için 410/404 dönebilir; `generateAssets` otomatik fallback ile güvenli çalışır.
+- `npx remotion` veya diğer CLI hatalarında önce `npm install` çalıştırın.
+- `ffmpeg` gerekli ise Windows'ta `choco install ffmpeg` veya https://ffmpeg.org/ üzerinden kurulumu öneriyorum.
+## Güvenlik & Gizlilik
+
+- `NebulaOne` kurgusaldır — gerçek marka/şirket isimleri gizlidir.
+- API anahtarlarını asla repoya eklemeyin; `.env` dosyasını paylaşmayın.
+## Hızlı İpuçları
+
+- Test render: `npx remotion render src/index.tsx ProductAd --frames 0-120`
+- Müzik: `src/assets/music.mp3` ekleyin, bileşenlerde `Audio` ile kullanın.
+## Sonraki adım olarak benden ne istersiniz?
+
+1. Arka plan müziğini ekleyeyim ve kısa bir mix hazırlayayım mı?
+2. `ffmpeg` kurulumu için adım adım yardımcı olayım mı (altyazı gömme dahil)?
+3. GitHub Actions ile otomatik build pipeline'ı kurayım mı?
+
+Seçimi yazın, ben devam edeyim.
 # NebulaOne — Benim Otomatik Remotion Tanıtım Videom
 
 Merhaba — bu repo benim hazırladığım, AI destekli ve Remotion (TypeScript) ile oluşturulmuş bir tanıtım videosu projesidir. Amacım kısa, profesyonel ve yeniden üretilebilir bir 1 dakikalık promo şablonu sunmaktı. İçeriklerin bir kısmını yapay zekayla ürettim, ama her şeyi kontrol edilebilir ve yerel olarak yeniden oluşturulabilir hâle getirdim.
