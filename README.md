@@ -123,11 +123,11 @@ ffmpeg -i out/final.mp4 -i out/subtitles.srt -c copy -c:s mov_text out/final_wit
 Versiyon `v1.0` etiketi oluşturulmuştur. Üretilen çıktı dosyaları repoda `out/` dizininde bulunmaktadır:
 
 - `out/final.mp4` — ana final render
-- `out/final_with_music_v2.mp4` — final (60s) + ambient müzik (mix v2)
-- `out/subtitles.srt` — altyazılar
-- `out/thumbnail.gif` — tek kare thumbnail
+ - `out/final.mp4` — ana final render (60s, müzik ile konsolide edildi)
+ - `out/subtitles.srt` — altyazılar
+ - `out/thumbnail.gif` — tek kare thumbnail
 
-Not: İstenirse `out/final_with_music_v2.mp4` GitHub Release'a eklenebilir; bunun için bir GitHub token gereklidir.
+Not: İstenirse `out/final.mp4` GitHub Release'a eklenebilir; bunun için bir GitHub token gereklidir.
 
 Merhaba — bu repo benim hazırladığım, AI destekli ve Remotion (TypeScript) ile oluşturulmuş bir tanıtım videosu projesidir. Amacım kısa, profesyonel ve yeniden üretilebilir bir 1 dakikalık promo şablonu sunmaktı. İçeriklerin bir kısmını yapay zekayla ürettim, ama her şeyi kontrol edilebilir ve yerel olarak yeniden oluşturulabilir hâle getirdim.
 ---
