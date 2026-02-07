@@ -107,8 +107,6 @@ ffmpeg -i out/final.mp4 -i out/subtitles.srt -c copy -c:s mov_text out/final_wit
 
 ## Hızlı ipuçları
 
-- Test render: `npx remotion render src/index.tsx ProductAd --frames 0-120`
-- Müzik ekleme: `src/assets/music.mp3` eklenerek bileşenlerde `Audio` kullanılabilir.
 ## Gelecek adımlar (öneriler)
 
 1. Arka plan müziğinin eklenmesi ve temel mix ayarlarının uygulanması
@@ -117,6 +115,19 @@ ffmpeg -i out/final.mp4 -i out/subtitles.srt -c copy -c:s mov_text out/final_wit
 
 İstenilen adım belirtilirse ilgili düzenlemeler gerçekleştirilebilir.
 # NebulaOne — Benim Otomatik Remotion Tanıtım Videom
+
+---
+
+## Release
+
+Versiyon `v1.0` etiketi oluşturulmuştur. Üretilen çıktı dosyaları repoda `out/` dizininde bulunmaktadır:
+
+- `out/final.mp4` — ana final render
+- `out/final_with_music_v2.mp4` — final (60s) + ambient müzik (mix v2)
+- `out/subtitles.srt` — altyazılar
+- `out/thumbnail.gif` — tek kare thumbnail
+
+Not: İstenirse `out/final_with_music_v2.mp4` GitHub Release'a eklenebilir; bunun için bir GitHub token gereklidir.
 
 Merhaba — bu repo benim hazırladığım, AI destekli ve Remotion (TypeScript) ile oluşturulmuş bir tanıtım videosu projesidir. Amacım kısa, profesyonel ve yeniden üretilebilir bir 1 dakikalık promo şablonu sunmaktı. İçeriklerin bir kısmını yapay zekayla ürettim, ama her şeyi kontrol edilebilir ve yerel olarak yeniden oluşturulabilir hâle getirdim.
 ---
