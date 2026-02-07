@@ -22,11 +22,11 @@ const MusicLayer: React.FC = () => {
 
   // Default and ducked volumes
   // base volume and dynamic ducking
-  const baseVolume = 0.7;
+  const baseVolume = 0.6;
   let volume = baseVolume;
 
-  const duckVolume = 0.2;
-  const duckFadeFrames = Math.round(fps * 0.6); // 0.6s fade for duck transitions
+  const duckVolume = 0.18;
+  const duckFadeFrames = Math.round(fps * 0.8); // 0.8s fade for duck transitions
 
   // helper for smoothstep
   const smooth = (x: number) => x * x * (3 - 2 * x);
@@ -55,8 +55,8 @@ const MusicLayer: React.FC = () => {
     volume = Math.min(volume, baseVolume * (1 - factor) + duckVolume * factor);
   }
 
-  // overall fade in/out for music (first 3s and last 4s)
-  const fadeInFrames = Math.round(fps * 3);
+  // overall fade in/out for music (first 2.5s and last 4s)
+  const fadeInFrames = Math.round(fps * 2.5);
   const fadeOutFrames = Math.round(fps * 4);
   if (frame < fadeInFrames) {
     volume *= (frame / fadeInFrames);
