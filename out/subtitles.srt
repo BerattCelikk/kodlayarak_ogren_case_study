@@ -1,0 +1,27 @@
+1
+00:00:00,000 --> 00:00:03,967
+NebulaOne — AI-driven insights that scale with your team
+
+2
+00:00:04,000 --> 00:00:11,300
+Automated Insights — Turn raw metrics into clear, prioritized tasks for your team.
+
+3
+00:00:11,333 --> 00:00:18,633
+Smart Alerts — Only get notified when something important changes — with suggested next steps.
+
+4
+00:00:18,666 --> 00:00:25,966
+One-click Reports — Generate stakeholder-ready reports in seconds with LLM-assisted summaries.
+
+5
+00:00:26,000 --> 00:00:33,300
+Integrations — Connect existing tools and get unified, AI-curated views across your stack.
+
+6
+00:00:33,333 --> 00:00:45,300
+Live Intelligence · Actionable Now — Automated briefs, anomaly detection, and prioritized recommendations derived directly from your telemetry.
+
+7
+00:00:45,333 --> 00:00:57,300
+Start NebulaOne — 14-day Free Trial · Instant setup · No credit card required
