@@ -1,76 +1,71 @@
 <!-- prettier-ignore -->
-# NebulaOne — Benim Otomatik Remotion Tanıtım Videom
+# NebulaOne — Otomatik Remotion Tanıtım Videosu
 
-![logo](src/assets/logo.svg)
+<img src="src/assets/logo.svg" alt="NebulaOne logo" width="140" />
 
-Merhaba — bu repo benim hazırladığım, AI destekli ve Remotion (TypeScript) ile oluşturulmuş kısa bir tanıtım videosu şablonu. Amacım:
+Bu depo, Remotion (TypeScript) kullanılarak oluşturulmuş, AI destekli bir tanıtım videosu şablonudur. Amaç, kısa ve profesyonel bir promo videosunun tekrarlanabilir bir şablon ile hızlıca oluşturulmasını sağlamaktır. AI tarafından üretilen içerikler kontrollü bir şekilde kullanılmakta ve gerektiğinde yerel örnek veriye geri dönülmektedir.
 
-- Hızlıca özelleştirilebilir bir 1 dakikalık promo şablonu sunmak
-- Yapay zekâdan gelen fikirleri güvenli, yeniden üretilebilir hâle getirmek
-- Basit komutlarla final video ve yardımcı dosyalar üretmek
-
-> Bu README, projeyi nasıl çalıştırdığımı, nasıl yeniden üretebileceğinizi ve olası sorunların nasıl çözüleceğini anlatır.
 **Öne çıkanlar**
 
 - Modüler React + TypeScript + Remotion bileşenleri
-- AI destekli varlık üretimi (Hugging Face) — otomatik metin/görsel önerileri
-- `Intro`, `Feature`, `LowerThird`, `CaptionOverlay`, `Outro` gibi yeniden kullanılabilir parçalar
+- AI destekli varlık üretimi (Hugging Face) — metin ve görsel önerileri
+- Yeniden kullanılabilir bileşenler: `Intro`, `Feature`, `LowerThird`, `CaptionOverlay`, `Outro`
 - Çıktılar: `out/final.mp4`, `out/subtitles.srt`, `out/thumbnail.gif`
-- Hazır script'ler: `build:final`, `build:webm`, `generate:assets`
+- Hazır scriptler: `build:final`, `build:webm`, `generate:assets`
 
 ## Hızlı Başlangıç
 
-1. Bağımlılıkları yükleyin:
+1. Bağımlılıkların yüklenmesi:
 
 ```bash
 npm install
 ```
 
-2. (Opsiyonel) Hugging Face API anahtarı ekleyin:
+2. (Opsiyonel) Hugging Face API anahtarının eklenmesi:
 
 ```
 HUGGINGFACE_API_KEY=hf_...your_key_here...
 ```
 
-3. AI varlıklarını üretmek (opsiyonel):
+3. AI varlıklarının üretilmesi (opsiyonel):
 
 ```bash
 npm run generate:assets
 ```
 
-4. Geliştirme önizlemesi:
+4. Geliştirme önizlemesi başlatma:
 
 ```bash
 npm run start
 ```
 
-5. Final render (benim çıktım `out/final.mp4` oldu):
+5. Final render (ör. `out/final.mp4`):
 
 ```bash
 npm run build:final
 ```
 
-6. WebM (VP9) çıktı:
+6. WebM (VP9) çıktısı oluşturma:
 
 ```bash
 npm run build:webm
 ```
 
-Not: `ffmpeg` yoksa altyazı gömme/transkod işlemleri yapılamaz; `ffmpeg` yüklüyse README altındaki örnekleri kullanabilirsiniz.
-## Nasıl çalışıyor (teknik notlar)
+Not: Yerel ortamda `ffmpeg` yüklü değilse altyazı gömme ve bazı transkod işlemleri yapılamaz. `ffmpeg` yüklüyse README'deki örnek komutlar kullanılabilir.
+## Nasıl çalışır (teknik özet)
 
-- `src/index.tsx` Remotion kökünü kayıt eder; `src/RemotionVideo.tsx` içinde zamanlama ve sekanslar bulunur.
-- Her bileşen bağımsızdır: tek bir bileşeni değiştirip hızlı test render'ı yapabilirsiniz (`--frames 0-120`).
-- `src/generateAssets.ts` Hugging Face router'ına istek atar; erişim yoksa `src/assets/generated.json` kullanılarak güvenli bir fallback sağlanır.
-- Bileşenler render sırasında `generated.json` içindeki `theme`, `brand` ve asset verilerini okur.
+- `src/index.tsx` Remotion kökünü kaydeder; ana kompozisyon `src/RemotionVideo.tsx` içerisinde zamanlama ve sekans düzeni ile tanımlıdır.
+- Bileşenler bağımsız tasarlanmıştır; tek bir bileşen üzerinde değişiklik yapılarak hızlı test render'ları yapılabilir (`--frames 0-120`).
+- `src/generateAssets.ts` Hugging Face router'ına istek gönderir; model erişimi sağlanamazsa `src/assets/generated.json` fallback olarak kullanılır.
+- Render sırasında bileşenler `generated.json` içindeki `theme`, `brand` ve asset verilerini kullanır.
 ## Önemli dosyalar
 
 - `src/RemotionVideo.tsx` — ana kompozisyon ve zamanlama
-- `src/components/` — bileşenler (`Intro`, `Feature`, `LowerThird`, `Outro`, vs.)
-- `src/generateAssets.ts` — AI tabanlı varlık oluşturucu (Node script)
+- `src/components/` — bileşenler (`Intro`, `Feature`, `LowerThird`, `Outro`, vb.)
+- `src/generateAssets.ts` — AI tabanlı varlık üreticisi (Node script)
 - `src/assets/generated.json` — fallback / örnek içerik
 - `out/` — `final.mp4`, `thumbnail.gif`, `subtitles.srt`, `CREDITS.txt`
-## Altyazılar ve Thumbnail
+## Altyazılar ve thumbnail
 
 - Altyazılar: `out/subtitles.srt`
 - Thumbnail: `out/thumbnail.gif`
@@ -80,26 +75,27 @@ Not: `ffmpeg` yoksa altyazı gömme/transkod işlemleri yapılamaz; `ffmpeg` yü
 ```bash
 ffmpeg -i out/final.mp4 -i out/subtitles.srt -c copy -c:s mov_text out/final_with_subs.mp4
 ```
-## Sorun giderme & dikkat edilmesi gerekenler
+## Sorun giderme ve dikkat edilmesi gerekenler
 
-- Hugging Face router bazı modeller için 410/404 dönebilir; `generateAssets` otomatik fallback ile güvenli çalışır.
-- `npx remotion` veya diğer CLI hatalarında önce `npm install` çalıştırın.
-- `ffmpeg` gerekli ise Windows'ta `choco install ffmpeg` veya https://ffmpeg.org/ üzerinden kurulumu öneriyorum.
-## Güvenlik & Gizlilik
+- Hugging Face router bazı modeller için 410/404 döndürebilir; `generateAssets` scripti otomatik fallback ile güvenilir bir davranış sergiler.
+- `npx remotion` veya diğer CLI hatalarında öncelikle `npm install` çalıştırılmalıdır.
+- `ffmpeg` gerektiğinde Windows için `choco install ffmpeg` veya resmi site üzerinden kurulum önerilir.
+## Güvenlik ve gizlilik
 
-- `NebulaOne` kurgusaldır — gerçek marka/şirket isimleri gizlidir.
-- API anahtarlarını asla repoya eklemeyin; `.env` dosyasını paylaşmayın.
-## Hızlı İpuçları
+- `NebulaOne` kurgusaldır; gerçek marka ve şirket isimleri kullanılmamıştır.
+- API anahtarları repoya eklenmemelidir; `.env` dosyaları paylaşılmamalıdır.
+
+## Hızlı ipuçları
 
 - Test render: `npx remotion render src/index.tsx ProductAd --frames 0-120`
-- Müzik: `src/assets/music.mp3` ekleyin, bileşenlerde `Audio` ile kullanın.
-## Sonraki adım olarak benden ne istersiniz?
+- Müzik ekleme: `src/assets/music.mp3` eklenerek bileşenlerde `Audio` kullanılabilir.
+## Gelecek adımlar (öneriler)
 
-1. Arka plan müziğini ekleyeyim ve kısa bir mix hazırlayayım mı?
-2. `ffmpeg` kurulumu için adım adım yardımcı olayım mı (altyazı gömme dahil)?
-3. GitHub Actions ile otomatik build pipeline'ı kurayım mı?
+1. Arka plan müziğinin eklenmesi ve temel mix ayarlarının uygulanması
+2. `ffmpeg` kurulumu ve altyazı gömme işlemleri için rehber sağlanması
+3. GitHub Actions ile otomatik build pipeline'ı oluşturulması
 
-Seçimi yazın, ben devam edeyim.
+İstenilen adım belirtilirse ilgili düzenlemeler gerçekleştirilebilir.
 # NebulaOne — Benim Otomatik Remotion Tanıtım Videom
 
 Merhaba — bu repo benim hazırladığım, AI destekli ve Remotion (TypeScript) ile oluşturulmuş bir tanıtım videosu projesidir. Amacım kısa, profesyonel ve yeniden üretilebilir bir 1 dakikalık promo şablonu sunmaktı. İçeriklerin bir kısmını yapay zekayla ürettim, ama her şeyi kontrol edilebilir ve yerel olarak yeniden oluşturulabilir hâle getirdim.
