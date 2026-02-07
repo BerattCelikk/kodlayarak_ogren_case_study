@@ -1,13 +1,15 @@
 import React from 'react';
 import {Audio, useCurrentFrame, useVideoConfig} from 'remotion';
 import generated from '../assets/generated.json';
+import musicStatic from '../assets/music.wav';
 
 const MusicLayer: React.FC = () => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const musicFile = generated.music || null;
+  const resolvedSrc = musicFile ? musicStatic : null;
 
-  if (!musicFile) return null;
+  if (!resolvedSrc) return null;
 
   const features = (generated.features || []).length;
   const featureStart = (idx: number) => 120 + idx * 220;
@@ -31,7 +33,7 @@ const MusicLayer: React.FC = () => {
 
   return (
     <>
-      <Audio src={`./assets/${musicFile}`} volume={volume} />
+      <Audio src={resolvedSrc} volume={volume} />
     </>
   );
 };
