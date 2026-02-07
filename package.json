@@ -1,0 +1,28 @@
+{
+  "name": "remotion-ai-ad",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "remotion preview",
+    "build": "remotion render src/index.tsx ProductAd --codec h264",
+    "build:vertical": "remotion render src/index.tsx ProductAd --codec h264 --output out/vertical.mp4",
+    "build:square": "remotion render src/index.tsx ProductAd --codec h264 --output out/square.mp4",
+    "generate:assets": "ts-node src/generateAssets.ts",
+    "build:final": "remotion render src/index.tsx ProductAd --codec h264 --output out/final.mp4"
+    ,"build:webm": "remotion render src/index.tsx ProductAd --codec vp9 --output out/final.webm"
+  },
+  "devDependencies": {
+    "@remotion/cli": "^4.0.419",
+    "@types/node": "^18.11.18",
+    "remotion": "^4.0.419",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.4",
+    "node-fetch": "^2.7.0",
+    "openai": "^4.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

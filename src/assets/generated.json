@@ -1,0 +1,34 @@
+{
+  "productName": "NebulaOne",
+  "brandName": "Nebula Labs",
+  "tagline": "AI-driven insights that scale with your team",
+  "brandColor": "#06b6d4",
+  "brandGradient": "linear-gradient(90deg,#071025 0%,#0b3a56 100%)",
+  "theme": "cool",
+  "callToAction": "Start NebulaOne — 14-day Free Trial",
+  "ctaSub": "Instant setup · No credit card required",
+  "dataTitle": "Live Intelligence · Actionable Now",
+  "dataSummary": "Automated briefs, anomaly detection, and prioritized recommendations derived directly from your telemetry.",
+  "features": [
+    {
+      "title": "Automated Insights",
+      "description": "Turn raw metrics into clear, prioritized tasks for your team.",
+      "image": "https://picsum.photos/seed/ai1/1200/800"
+    },
+    {
+      "title": "Smart Alerts",
+      "description": "Only get notified when something important changes — with suggested next steps.",
+      "image": "https://picsum.photos/seed/ai2/1200/800"
+    },
+    {
+      "title": "One-click Reports",
+      "description": "Generate stakeholder-ready reports in seconds with LLM-assisted summaries.",
+      "image": "https://picsum.photos/seed/ai3/1200/800"
+    },
+    {
+      "title": "Integrations",
+      "description": "Connect existing tools and get unified, AI-curated views across your stack.",
+      "image": "https://picsum.photos/seed/ai4/1200/800"
+    }
+  ]
+}
