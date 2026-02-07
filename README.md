@@ -89,6 +89,12 @@ Not: Yerel ortamda `ffmpeg` yüklü değilse altyazı gömme ve bazı transkod i
 ```bash
 ffmpeg -i out/final.mp4 -i out/subtitles.srt -c copy -c:s mov_text out/final_with_subs.mp4
 ```
+
+### Arka plan müziği
+
+- Projede 60s uzunluğunda telifsiz bir ambient parça `src/assets/music.wav` olarak eklendi.
+- Müzik, `MusicLayer` bileşeni tarafından oynatılır ve konuşma/altyazı bölümlerinde otomatik olarak kısılır (ducking).
+- Eğer farklı bir parça kullanmak isterseniz `src/assets/music.wav` dosyasını değiştirin veya `src/assets/generated.json` içindeki `music` alanını güncelleyin.
 ## Sorun giderme ve dikkat edilmesi gerekenler
 
 - Hugging Face router bazı modeller için 410/404 döndürebilir; `generateAssets` scripti otomatik fallback ile güvenilir bir davranış sergiler.
